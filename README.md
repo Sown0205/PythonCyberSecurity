@@ -49,6 +49,12 @@ There are 2 command arguments: --ports and --range
 
 --range: Scan a range of ports (e.g --range 1-1000 ; the hyphen (-) is required to seperate start port and end port)
 
+If you dont want to copy and paste the code, you can clone the repository instead then use the file to run
+
+```bash
+sudo git clone https://github.com/Sown0205/PythonCyberSecurity.git
+```
+
 ## Error Exception Handling
 - Invalid IP address
 - Invalid port input (port must be a number)
