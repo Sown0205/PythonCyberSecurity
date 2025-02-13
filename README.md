@@ -46,6 +46,7 @@ sudo python3 syn_scanner.py (target IP) (target ports)
 There are 2 command arguments: --ports and --range
 
 --ports: Scan a single or multiple ports (e.g --ports 145 ; --ports 139,145,445)
+
 --range: Scan a range of ports (e.g --range 1-1000 ; the hyphen (-) is required to seperate start port and end port)
 
 ## Error Exception Handling
