@@ -2,6 +2,7 @@ import time
 import argparse
 import threading
 from scapy.all import *
+import sys
 
 # Function to validate IP address
 def is_valid_ip(ip):
@@ -46,13 +47,31 @@ def scan_ports(target, ports):
     if not results:
         print("\n[!] No open or closed ports found in the given range.")
 
+# Custom argument parser to handle missing arguments
+class CustomArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        print(f"\nError: {message}")
+        print("Arguments flags: --target, --ports and --range are required to execute the command")
+        print("Example Usage: sudo python3 SynScannerOnLinux.py --target <target IP> --ports 22,80,443 or --range 20-100\n")
+        sys.exit(1)
+
 # Main function to handle arguments
 def main():
-    parser = argparse.ArgumentParser(description="Multi-threaded SYN Port Scanner")
-    parser.add_argument("target", help="Target IP address")
+    parser = CustomArgumentParser(description="Multi-threaded SYN Port Scanner")
+    parser.add_argument("--target", help="Target IP address (required)")
     parser.add_argument("--ports", help="Comma-separated ports (e.g., 22,80,443)")
     parser.add_argument("--range", help="Port range (e.g., 20-100)")
-    args = parser.parse_args()
+    
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        sys.exit(1)
+
+    # Check if there is an IP address in target
+    if not args.target:
+        print("Error: Missing IP address. Please specify an IP address")
+        print("Example Usage: sudo python3 SynScannerOnLinux.py <target IP> --ports 139,445 or range 20-100")
+        return
 
     # Validate IP address
     if not is_valid_ip(args.target):
@@ -94,7 +113,8 @@ def main():
                 raise ValueError("Start port must be smaller than end port")
 
             ports.update(range(start, end + 1))
-
+        
+        # Except for other errors
         except ValueError as e:
             print(f"Error: {e}")
             return

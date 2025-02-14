@@ -38,21 +38,29 @@ sudo nano syn_scanner.py
 
 Then, copy and paste the code into the newly created file, then save it (Ctrl + O, Enter, Ctrl + X)
 
-Run the command
+Run the command 
 ```bash
-sudo python3 syn_scanner.py (target IP) (target ports)
+sudo python3 syn_scanner.py --target <target IP> --ports <single or multiple ports scanning> or --range <port range scanning>
 ```
 
-There are 2 command arguments: --ports and --range
+There are 3 command-line argument flags: --target, --ports and --range
 
---ports: Scan a single or multiple ports (e.g --ports 145 ; --ports 139,145,445)
+--target: Specifies IP address for scanning (this flag is required)
 
---range: Scan a range of ports (e.g --range 1-1000 ; the hyphen (-) is required to seperate start port and end port)
+--ports: Scan a single or multiple ports (e.g --ports 145 ; --ports 139,145,445) (this flag is required)
 
-If you dont want to copy and paste the code, you can clone the repository instead then use the file to run
+--range: Scan a range of ports (e.g --range 1-1000 ; the hyphen (-) is required to seperate start port and end port) (this flag is required)
+
+If the required flags is missing in the command, then the program will return an error message
+
+In case you dont want to copy and paste the code, you can clone the repository instead
 
 ```bash
 sudo git clone https://github.com/Sown0205/PythonCyberSecurity.git
+```
+Then use the main file to run the code
+```bash
+sudo python3 SynScannerOnLinux.py --target <target IP> --ports <single or mutiple ports scanning> or --range <port range scanning>
 ```
 
 ## Error Exception Handling
@@ -62,6 +70,7 @@ sudo git clone https://github.com/Sown0205/PythonCyberSecurity.git
 - Invalid port range (start port must be smaller than end port)
 - Invalid range format (Hyphen (-) is required)
 - Invalid input format (must include --ports or --range)
+- Missing required arguments (--target and --ports or --range)
 
 
 ## Contributing
