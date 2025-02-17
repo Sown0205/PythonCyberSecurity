@@ -34,7 +34,7 @@ You can clone this repo and use the code from the main file
 git clone https://github.com/Sown0205/PythonCyberSecurity.git
 sudo python3 AES_Cryptography_Tool.py <encrypt or decrypt>
 ```
-There are 2 options: encrypt and decrypt
+There are 2 options: encrypt and decrypt (this field is required)
 
 If users want to encrypt a file, type
 
@@ -57,3 +57,33 @@ The user then can save the key into a file if they want
 ```bash
 Do you want to save the key to a file? (yes/no):
 ```
+
+If user choose 'yes', the key will be saved into a .txt file
+
+Now for decrypt, if the user wants to decrypt a file, type this command
+
+```bash
+sudo python3 AES_Cryptography_Tool.py decrypyt
+```
+
+First, they will have to enter the file that they want to decrypt. 
+
+If the chosen file is not existed, or it is not a valid encrypted file (valid encrypted file has a .enc extension, as the encrypted process did this), the program will return an error
+
+Else, the program will prompt the user to enter the key that has been provided earlier. If the key is wrong, program will return an error. Else, the process continues.
+
+The chosen file then will be decrypted to the original one, the decrypted file will be deleted, as it wont be needed anymore
+
+## Error Exception Handling
+
+- Invalid argument type: not encrypt or decrypt
+
+- Not found file error
+
+- Invalid file format (not having ".enc" extension - only for decrypt function)
+
+- Invalid key (only for decrypt function)
+
+## Contributions
+
+- Pull requests are available. Feel free to commit if you want to make changes to the program.
