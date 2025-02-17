@@ -98,24 +98,6 @@ def decrypt_file():
         print(f"Your file {encrypted_file_path} has been decrypted")
         print(f"Decrypted file: {decrypted_file_path}")
 
-        option = input("Do you want to delete the key file ?: [yes/no]").strip().lower()
-        if option == "yes" or option == "y":
-            key_file = input("Enter the key filename to delete the key: ").strip()
-            # If path not found
-            if not os.path.exists(key_file):
-                print("Error: Key file not found !")
-                return
-            # Else
-            else:
-                with open(key_file, "rb") as f:
-                    key = f.read()
-                    # If the key file contents does not match the true key
-                    if key != key_hex:
-                        print("Error: The key file contents does not match the real key")
-                        return
-                    else: # if match, delete the key file
-                        os.remove(key_file)
-
     # Error handling
     except Exception as e:
         print("Decryption failed: Invalid key!")
