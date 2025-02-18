@@ -70,7 +70,7 @@ def main():
     # Check if there is an IP address in target
     if not args.target:
         print("Error: Missing IP address. Please specify an IP address")
-        print("Example Usage: sudo python3 SynScannerOnLinux.py <target IP> --ports 139,445 or range 20-100")
+        print("Example Usage: sudo python3 SynScannerOnLinux.py --target <target IP> --ports 139,445 or range 20-100")
         return
 
     # Validate IP address
