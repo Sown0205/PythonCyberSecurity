@@ -3,6 +3,7 @@ import argparse
 import threading
 from scapy.all import *
 import sys
+from datetime import datetime
 
 # Function to validate IP address
 def is_valid_ip(ip):
@@ -124,7 +125,7 @@ def main():
         print("Error: Please specify ports using --ports or --range.")
         return
 
-    print(f"\nStarting SYN scan on {args.target}...\n")
+    print(f"\nStarting SYN scan on {args.target} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     start_time = time.time()  # Start time tracking
 
     scan_ports(args.target, ports)
