@@ -89,7 +89,7 @@ def encrypt_file():
                       else: 
                           print("\nInvalid command. Choose 'yes' ('y') or 'no' ('n') \n")
                           continue
-
+        # if other inputs are made - display invalid command and return
         else: 
             print("\nInvalid command ! Choose 'yes' ('y') or 'no' ('n')")
             return
@@ -104,7 +104,8 @@ def decrypt_file():
         return
     
     # Handle invalid encrypted file
-    if not encrypted_file_path.endswith(".enc"):
+    file_extension = ".enc"
+    if not encrypted_file_path.endswith(file_extension):
         print("Error: File is not a valid encrypted file.")
         return
     
