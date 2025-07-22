@@ -27,6 +27,7 @@ def encrypt_file():
         
         #if no - return
         if prompt == "no" or prompt == "n":
+            print("Make sure that you really want to encrypt this file. If the decryption key is lost, decryption will be impossible")
             return
         
         #if yes - continue
@@ -49,31 +50,50 @@ def encrypt_file():
                     f.write(iv + ciphertext)
                 
                 os.remove(file_path) # Remove the original file path to delete tracks
-                print(f"Your file {file_path} has been encrypted and the original content has been deleted")
+                print(f"\nYour file {file_path} has been encrypted and the original content has been deleted")
                 print(f"Your encrypted file: {encrypted_file_path}\n")
-                print(f"Encryption key (THIS IS IMPORTANT IF YOU WANT TO DECRYPT THE FILE ! SAVE IT): {key.hex()}")
+                print(f"Encryption key (THIS IS IMPORTANT IF YOU WANT TO DECRYPT THE FILE ! SAVE IT): {key.hex()} \n")
 
                 # Save the key into a file if users want to
-                save_option = input("Do you want to save the key to a file? (yes/no): ").strip().lower()
-                if save_option == "yes" or save_option == "y":
-                    # Use a loop to make sure the user enter the valid key path
-                    while True:
-                        key_file = input("Enter the filename to save the key: ").strip()
-                        #Check file path valid or not
-                        if ".txt" not in key_file:
-                            print("Invalid key file path !")
-                            continue
-                        else:
-                            with open(key_file, "w") as f:
-                               f.write(key.hex())
-                            print(f"Key saved to {key_file}")
-                            break
-                    
-        #Other inputs - display message Inavlid command and return
-        else:
-            print('Invalid command !')
+                # Make a loop to validate user's choices
+                while True:
+                      save_option = input("Do you want to save the key to a file? (yes/no): ").strip().lower()
+
+                      #If choose 'yes' -> save the key to a file then break the loop
+                      if save_option == "yes" or save_option == "y":
+                      # Use a loop to make sure the user enter the valid key path
+                          while True:
+                                key_file = input("Enter the filename to save the key: ").strip()
+                                #Check file path valid or not
+                                if ".txt" not in key_file:
+                                   print("\nInvalid key file path ! The file path should have '.txt' extension")
+                                   print("Example: 'key.txt', 'secure.txt', 'lock.txt',...\n")
+                                   continue
+                                
+                                #The key file path should not be the same as the original file path
+                                elif key_file == file_path:
+                                   print("The file path should not be the same as the original file path. Try a different name")
+                                   continue
+                                else:
+                                   with open(key_file, "w") as f:
+                                      f.write(key.hex())
+                                   print(f"Key saved to {key_file}")
+                                   break
+                          break
+
+                      #if choose 'no' -> break the loop (nothing to do more)
+                      elif save_option == "no" or save_option == "n":
+                          break
+
+                      #Else -> continue the loop to make sure users choose the right command
+                      else: 
+                          print("\nInvalid command. Choose 'yes' ('y') or 'no' ('n') \n")
+                          continue
+
+        else: 
+            print("\nInvalid command ! Choose 'yes' ('y') or 'no' ('n')")
             return
-    
+
 # Function to decrypt the file with the provided key
 def decrypt_file():
     encrypted_file_path = input("Enter the encrypted file that you want to decrypt: ")
