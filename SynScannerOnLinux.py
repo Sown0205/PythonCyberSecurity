@@ -1,9 +1,10 @@
 import time
 import argparse
 import threading
-from scapy.all import *
+from scapy.all import IP, TCP, sr1, send
 import sys
 from datetime import datetime
+import re
 
 # Function to validate IP address
 def is_valid_ip(ip):
