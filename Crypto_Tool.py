@@ -45,7 +45,7 @@ def encrypt_file():
     
     #Prompt the user if they really want to encrypt the file
     else:
-        prompt = input("Do you really want to encrypt this file (yes/no ?): ")
+        prompt = input(Fore.YELLOW + "Do you really want to encrypt this file (yes/no ?): ")
         
         #if no - return
         if prompt == "no" or prompt == "n":
@@ -79,7 +79,7 @@ def encrypt_file():
                 # Save the key into a file if users want to
                 # Make a loop to validate user's choices
                 while True:
-                      save_option = input("Do you want to save the key to a file? (yes/no): ").strip().lower()
+                      save_option = input(Fore.YELLOW + "Do you want to save the key to a file? (yes/no): ").strip().lower()
 
                       #If choose 'yes' -> save the key to a file then break the loop
                       if save_option == "yes" or save_option == "y":
