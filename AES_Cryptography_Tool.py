@@ -6,6 +6,24 @@ import argparse
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
+from colorama import init, Fore, Style
+init(autoreset=True)
+
+# Function to display the banner
+def print_banner():
+    banner = r"""
+     ___   _____ _____   ___   ___ ___  ___   _   _ _____ ___  ___ 
+    |   \ | __  |  _  | |   | |   |_  ||  _| | | | |     |  _||  _|
+    | |) || __ -|     | |_  | |_  | | || |__ | |_| |  |  |  _||_  \
+    |___/ |_____|__|__| |___| |___|___||___/ |_____|_____|___||___/
+    
+                    AES-256 File Encryption & Decryption tool
+    
+        In order to use this tool, please specify a cryptography mode: encrypt or decrypt
+        
+    Example usage: python3 AES_Cryptography_Tool.py encrypt || python3 AES_Cryptography_Tool.py decrypt
+    """
+    print(Fore.MAGENTA + Style.BRIGHT + banner + Style.RESET_ALL)
 
 # Function to generate a random AES-256 key size
 def generate_key():
@@ -18,7 +36,7 @@ def encrypt_file():
     
     # Handle unknown files
     if not os.path.exists(file_path):
-        print("File not found!")
+        print(Fore.RED + "File not found!")
         return
     
     #Prompt the user if they really want to encrypt the file
@@ -27,7 +45,7 @@ def encrypt_file():
         
         #if no - return
         if prompt == "no" or prompt == "n":
-            print("Make sure that you really want to encrypt this file. If the decryption key is lost, decryption will be impossible")
+            print(Fore.YELLOW + "Make sure that you really want to encrypt this file. If the decryption key is lost, decryption will be impossible")
             return
         
         #if yes - continue
@@ -50,9 +68,9 @@ def encrypt_file():
                     f.write(iv + ciphertext)
                 
                 os.remove(file_path) # Remove the original file path to delete tracks
-                print(f"\nYour file {file_path} has been encrypted and the original content has been deleted")
-                print(f"Your encrypted file: {encrypted_file_path}\n")
-                print(f"Encryption key (THIS IS IMPORTANT IF YOU WANT TO DECRYPT THE FILE ! SAVE IT): {key.hex()} \n")
+                print(Fore.GREEN + f"\nYour file {file_path} has been encrypted and the original content has been deleted")
+                print(Fore.GREEN + f"Your encrypted file: {encrypted_file_path}\n")
+                print(Fore.GREEN + Style.BRIGHT + f"Encryption key (THIS IS IMPORTANT IF YOU WANT TO DECRYPT THE FILE ! SAVE IT): {key.hex()} \n")
 
                 # Save the key into a file if users want to
                 # Make a loop to validate user's choices
@@ -66,18 +84,18 @@ def encrypt_file():
                                 key_file = input("Enter the filename to save the key: ").strip()
                                 #Check file path valid or not
                                 if ".txt" not in key_file:
-                                   print("\nInvalid key file path ! The file path should have '.txt' extension")
-                                   print("Example: 'key.txt', 'secure.txt', 'lock.txt',...\n")
+                                   print(Fore.RED + "\nInvalid key file path ! The file path should have '.txt' extension")
+                                   print(Fore.RED + "Example: 'key.txt', 'secure.txt', 'lock.txt',...\n")
                                    continue
                                 
                                 #The key file path should not be the same as the original file path
                                 elif key_file == file_path:
-                                   print("The file path should not be the same as the original file path. Try a different name")
+                                   print(Fore.RED + "The file path should not be the same as the original file path. Try a different name")
                                    continue
                                 else:
                                    with open(key_file, "w") as f:
                                       f.write(key.hex())
-                                   print(f"Key saved to {key_file}")
+                                   print(Fore.GREEN + f"Key saved to {key_file}")
                                    break
                           break
 
@@ -87,11 +105,11 @@ def encrypt_file():
 
                       #Else -> continue the loop to make sure users choose the right command
                       else: 
-                          print("\nInvalid command. Choose 'yes' ('y') or 'no' ('n') \n")
+                          print(Fore.RED + "\nInvalid command. Choose 'yes' ('y') or 'no' ('n') \n")
                           continue
         # if other inputs are made - display invalid command and return
         else: 
-            print("\nInvalid command ! Choose 'yes' ('y') or 'no' ('n')")
+            print(Fore.RED + "\nInvalid command ! Choose 'yes' ('y') or 'no' ('n')")
             return
 
 # Function to decrypt the file with the provided key
@@ -100,13 +118,13 @@ def decrypt_file():
 
     #Handle unknown file paths
     if not os.path.exists(encrypted_file_path):
-        print("File not found!")
+        print(Fore.RED + "File not found!")
         return
     
     # Handle invalid encrypted file
     file_extension = ".enc"
     if not encrypted_file_path.endswith(file_extension):
-        print("Error: File is not a valid encrypted file.")
+        print(Fore.RED + "Error: File is not a valid encrypted file.")
         return
     
     key_hex = input("Enter the decryption key: \n")
@@ -115,7 +133,7 @@ def decrypt_file():
     try:
         key = bytes.fromhex(key_hex)
     except ValueError:
-        print("Invalid key format!")
+        print(Fore.RED + "Invalid key format!")
         return
     
     with open(encrypted_file_path, "rb") as f:
@@ -138,12 +156,12 @@ def decrypt_file():
             f.write(plaintext)
         
         os.remove(encrypted_file_path) # Remove the encrypted file path as the file has been decrypted
-        print(f"Your file {encrypted_file_path} has been decrypted")
-        print(f"Decrypted file: {decrypted_file_path}")
+        print(Fore.GREEN + f"Your file {encrypted_file_path} has been decrypted")
+        print(Fore.GREEN + f"Decrypted file: {decrypted_file_path}")
 
     # Error handling
     except Exception as e:
-        print("Decryption failed: Invalid key!")
+        print(Fore.RED + "Decryption failed: Invalid key!")
 
 # Main function - handle arguments
 def main():    
@@ -152,13 +170,13 @@ def main():
     args = parser.parse_args()
     
     if not args.mode:
-        print("Please provide a specified cryptography mode: encrypt or decrypt")
+        print_banner()
     elif args.mode == "encrypt":
         encrypt_file()
     elif args.mode == "decrypt":
         decrypt_file()
     else:
-        print("Invalid argument. Use 'encrypt' or 'decrypt'.")
+        print(Fore.RED + "Invalid argument. Use 'encrypt' or 'decrypt'.")
 
 if __name__ == "__main__":
     main()
