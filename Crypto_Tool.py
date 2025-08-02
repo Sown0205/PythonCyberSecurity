@@ -12,18 +12,22 @@ init(autoreset=True)
 # Function to display the banner
 def print_banner():
     banner = r"""
-     ___   _____ _____   ___   ___ ___  ___   _   _ _____ ___  ___ 
-    |   \ | __  |  _  | |   | |   |_  ||  _| | | | |     |  _||  _|
-    | |) || __ -|     | |_  | |_  | | || |__ | |_| |  |  |  _||_  \
-    |___/ |_____|__|__| |___| |___|___||___/ |_____|_____|___||___/
+     
+    ██████╗██████╗ ██╗   ██╗██████╗ ████████╗ ██████╗ 
+   ██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔═══██╗
+   ██║     ██████╔╝ ╚████╔╝ ██████╔╝   ██║   ██║   ██║
+   ██║     ██╔══██╗  ╚██╔╝  ██╔═══╝    ██║   ██║   ██║
+   ╚██████╗██║  ██║   ██║   ██║        ██║   ╚██████╔╝
+    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝    ╚═════╝ 
+
     
-                    AES-256 File Encryption & Decryption tool
+    AES-256 File Encryption & Decryption tool
     
-        In order to use this tool, please specify a cryptography mode: encrypt or decrypt
+    In order to use this tool, please specify a cryptography mode: encrypt or decrypt
         
     Example usage: python3 AES_Cryptography_Tool.py encrypt || python3 AES_Cryptography_Tool.py decrypt
     """
-    print(Fore.MAGENTA + Style.BRIGHT + banner + Style.RESET_ALL)
+    print(Fore.CYAN + Style.BRIGHT + banner + Style.RESET_ALL)
 
 # Function to generate a random AES-256 key size
 def generate_key():
@@ -172,8 +176,10 @@ def main():
     if not args.mode:
         print_banner()
     elif args.mode == "encrypt":
+        print_banner()
         encrypt_file()
     elif args.mode == "decrypt":
+        print_banner()
         decrypt_file()
     else:
         print(Fore.RED + "Invalid argument. Use 'encrypt' or 'decrypt'.")
