@@ -20,10 +20,12 @@ These modules and libraries are required to run the code
 
 - os: Handles with files
 
+- colorama: Display colorful messages for banner, warnings and outputs
+
 To import these, open cmd and type
 
 ```bash
-pip install argparse os cryptography
+pip install argparse os cryptography colorama
 ```
 
 ## How to run
@@ -32,14 +34,14 @@ You can clone this repo and use the code from the main file
 
 ```bash
 git clone https://github.com/Sown0205/PythonCyberSecurity.git
-sudo python3 AES_Cryptography_Tool.py <encrypt or decrypt>
+python3 Crypto_Tool.py encrypt (encrypting the file) || python3 Crypto_Tool.py (decrypting the file)
 ```
 There are 2 options: encrypt and decrypt (this field is required)
 
 If users want to encrypt a file, type
 
 ```bash
-sudo python3 AES_Cryptography_Tool.py encrypt
+python3 Crypto_Tool.py encrypt
 ```
 
 The program then will prompts the user to enter the file path that they want to encrypt:
@@ -63,7 +65,7 @@ If user choose 'yes', the key will be saved into a .txt file
 Now for decrypt, if the user wants to decrypt a file, type this command
 
 ```bash
-sudo python3 AES_Cryptography_Tool.py decrypyt
+python3 Crypto_Tool.py decrypyt
 ```
 
 First, they will have to enter the file that they want to decrypt. 
@@ -72,7 +74,7 @@ If the chosen file is not existed, or it is not a valid encrypted file (valid en
 
 Else, the program will prompt the user to enter the key that has been provided earlier. If the key is wrong, program will return an error. Else, the process continues.
 
-The chosen file then will be decrypted to the original one, the decrypted file will be deleted, as it wont be needed anymore
+The chosen file then will be decrypted to the original one,and the decrypted file will be deleted
 
 ## Error Exception Handling
 
@@ -83,6 +85,8 @@ The chosen file then will be decrypted to the original one, the decrypted file w
 - Invalid file format (not having ".enc" extension - only for decrypt function)
 
 - Invalid key (only for decrypt function)
+
+- Users validation handling (if users type invalid input)
 
 ## Contributions
 
