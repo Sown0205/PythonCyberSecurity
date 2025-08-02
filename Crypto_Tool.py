@@ -175,6 +175,15 @@ def main():
     
     if not args.mode:
         print_banner()
+        prompt = input("Choose a cryptography mode: encrypt or decrypt: ").strip().lower()
+        if prompt == "encrypt":
+           encrypt_file()
+        elif prompt == "decrypt":
+           decrypt_file()
+        else:
+           print(Fore.RED + "Invalid cryptography mode !")
+           return
+
     elif args.mode == "encrypt":
         print_banner()
         encrypt_file()
